@@ -1,0 +1,290 @@
+:root {
+  /* Brand — violet primary, cyan secondary (matches the logo mark) */
+  --violet: #aa3bff;
+  --violet-bright: #c084fc;
+  --cyan: #47bfff;
+
+  --bg: #08070d;
+  --bg-soft: #0e0c16;
+  --fg: #ece9f5;
+  --muted: #9690a8;
+  --faint: #5d5870;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.14);
+
+  --sans: 'Bricolage Grotesque', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  color-scheme: dark;
+  font-family: var(--sans);
+  color: var(--fg);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ---------- Atmosphere: editor-canvas grid + violet glow ---------- */
+body::before {
+  /* dot grid — the "canvas" you build on */
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 38%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 38%, #000 0%, transparent 78%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+body::after {
+  /* soft violet → cyan aura behind the headline */
+  content: '';
+  position: fixed;
+  top: -22vh;
+  left: 50%;
+  width: 120vw;
+  height: 90vh;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(40% 50% at 42% 50%, rgba(170, 59, 255, 0.22), transparent 70%),
+    radial-gradient(38% 50% at 62% 46%, rgba(71, 191, 255, 0.14), transparent 70%);
+  filter: blur(10px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Shell ---------- */
+.shell {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 28px 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.brand img {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+
+.brand .word {
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--violet-bright);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 5px 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  background: rgba(170, 59, 255, 0.06);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 0 0 rgba(71, 191, 255, 0.6);
+  animation: pulse 2.4s ease-out infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(71, 191, 255, 0.55); }
+  70% { box-shadow: 0 0 0 7px rgba(71, 191, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(71, 191, 255, 0); }
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 0;
+  max-width: 640px;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 22px;
+  opacity: 0;
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.05s forwards;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
+  line-height: 0.98;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  margin: 0;
+  opacity: 0;
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.13s forwards;
+}
+
+h1 .grad {
+  background: linear-gradient(110deg, var(--violet-bright) 0%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sub {
+  font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 26px 0 0;
+  max-width: 30em;
+  font-weight: 400;
+  opacity: 0;
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s forwards;
+}
+
+.launch {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--fg);
+  margin: 30px 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.29s forwards;
+}
+
+.launch .bar {
+  width: 26px;
+  height: 1px;
+  background: var(--line-strong);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Actions ---------- */
+.actions {
+  margin: 38px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  opacity: 0;
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.37s forwards;
+}
+
+.ghbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: var(--fg);
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 11px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.2s, background 0.2s, transform 0.18s;
+}
+
+.ghbtn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
+}
+
+.ghbtn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  border-top: 1px solid var(--line);
+  margin-top: auto;
+}
+
+.foot-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--faint);
+}
+
+.foot-inner a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.foot-inner a:hover {
+  color: var(--fg);
+}
+
+@media (max-width: 560px) {
+  .shell { padding: 22px 20px 0; }
+  .hero { padding: 44px 0; }
+  .badge { display: none; }
+  .actions { flex-direction: column; align-items: stretch; }
+  .ghbtn { justify-content: center; }
+  .foot-inner { flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px 20px; }
+}

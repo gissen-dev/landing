@@ -3,6 +3,8 @@ import logo from '/favicon.svg'
 
 const CONTACT = 'hello@gissen.dev'
 const GITHUB = 'https://github.com/gissen-dev'
+const X = 'https://x.com/gissen_dev'
+const BSKY = 'https://bsky.app/profile/gissen-dev.bsky.social'
 </script>
 
 <template>
@@ -39,6 +41,22 @@ const GITHUB = 'https://github.com/gissen-dev'
             />
           </svg>
           GitHub
+        </a>
+        <a class="ghbtn" :href="X" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              d="M9.52 6.77 15.48 0h-1.41L8.9 5.88 4.77 0H0l6.25 8.9L0 16h1.41l5.46-6.2L11.23 16H16L9.52 6.77ZM7.59 8.97l-.63-.89L1.92 1.04h2.17l4.06 5.69.63.89 5.28 7.39h-2.17L7.59 8.97Z"
+            />
+          </svg>
+          X
+        </a>
+        <a class="ghbtn" :href="BSKY" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              d="M3.47 1.4C5.31 2.78 7.29 5.58 8 7.08c.71-1.5 2.69-4.3 4.53-5.68C13.86.4 16 -.36 16 2.08c0 .49-.28 4.1-.44 4.69-.58 2.04-2.66 2.56-4.51 2.24 3.23.55 4.05 2.37 2.28 4.19-3.36 3.45-4.83-.87-5.21-1.97-.07-.2-.1-.3-.12-.22-.02-.08-.05.02-.12.22-.38 1.1-1.85 5.42-5.21 1.97-1.77-1.82-.95-3.64 2.28-4.19-1.85.32-3.93-.2-4.51-2.24C.28 6.18 0 2.57 0 2.08 0-.36 2.14.4 3.47 1.4Z"
+            />
+          </svg>
+          Bluesky
         </a>
       </div>
     </main>
